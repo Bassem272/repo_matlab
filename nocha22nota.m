@@ -108,11 +108,11 @@ simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N
   
 end  
  out = sim(simin);
-   valc=[out.x].';
-   valv=[out.q].';
-   vala=[out.asd].';
-   valo=[out.asd1].';
-   vale=[out.asd2].';
+   valc1=[out.x].';
+   valv1=[out.q].';
+   vala1=[out.asd].';
+   valo1=[out.asd1].';
+   vale1=[out.asd2].';
    
    % i1 = out.i1;i2 = out.i2;i3 = out.i3;
 simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
@@ -163,11 +163,11 @@ simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N
 %qwe is important for test date range
 end  
 out=sim(simin);%,'ShowSimulationManager','on')
-valc1=[out.x].';
-   valv1=[out.q].';
-   vala1=[out.asd].';
-   valo1=[out.asd1].';
-   vale1=[out.asd2].';
+valc2=[out.x].';
+   valv2=[out.q].';
+   vala2=[out.asd].';
+   valo2=[out.asd1].';
+   vale2=[out.asd2].';
 simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
  simin= simin.setBlockParameter('notch1/fault2','FaultA', 'off');
   simin= simin.setBlockParameter('notch1/fault2','FaultB', 'off');
@@ -212,11 +212,11 @@ simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N
 
 end  
 out=sim(simin);%,'ShowSimulationManager','on')
-valc2=[out.x].';
-   valv2=[out.q].';
-  vala2=[out.asd].';
-   valo2=[out.asd1].';
-   vale2=[out.asd2].';
+valc3=[out.x].';
+   valv3=[out.q].';
+  vala3=[out.asd].';
+   valo3=[out.asd1].';
+   vale3=[out.asd2].';
  
    
    
@@ -278,7 +278,7 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
     lineone(N)=vv3(N);
     linel(N)=zz3(N);
  
-    Fr1(N)=R(N)*5;   % range of 100 ohm
+    Fr1(N)=R(N)*100;   % range of 100 ohm
        fault(N)= F(N);
           fault2(N)=f(N);
              fault3(N)=ff(N);
@@ -316,14 +316,15 @@ valc5=[out.x].';
 %           tableo=[valo;valo1;valo2];
 %           tablee=[valevalc;valv55;vale1;vale2];valc5;;valv5
        tablei=[valc1;valc2;valc3;valc4;valc5;];
-          tablev=[valv1;valv2;valv3;valv4;valv5;]   
+          tablev=[valv1;valv2;valv3;valv4;valv5] ;  
           
 save('drago8.mat');%normal drago2 5 ohm without switch timegood results
 %drago3 100ohm timed also saved in matlabdrago3.mat=++=drago4 for fault and
 %load add فيها  بس faults عند اللودdrago6.mat=load and line 8 finally all
 %all the work done on voltage
 %saved in dragon  and drago7 has line8 without time and 5 ohm
-%drago8 timed 100 ohm using filters on voltage and current
+%drago8 timed 100 ohm using filters on voltage and current %%%% dragna
+%saved dragon8
 
 
 function reac = calc_reactive_power(p)
