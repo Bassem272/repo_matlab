@@ -6,7 +6,7 @@ mODL_NAME = 'notch1';
 load_system(mODL_NAME);
 find_system(mODL_NAME);
 %drago9 drago10
-N=200;        % number of population made change 25/5 drago .mat copy of nocha22nota.m
+N=500;        % number of population made change 25/5 drago .mat copy of nocha22nota.m
   
   l1=5.87;
     l2=.95;
@@ -108,11 +108,14 @@ simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N
   
 end  
  out = sim(simin);
-   valc1=[out.x].';
+     valc1=[out.x].';%current
+    valc11=[out.x1].';
    valv1=[out.q].';
- vali1=[out.g1].';
-   vali2=[out.g2].';
-      vali3=[out.g3].';
+     valv11=[out.q1].';
+
+ vali11=[out.g1].';
+   vali12=[out.g2].';
+      vali13=[out.g3].';
    
    
    %    vala1=[out.asd].'; valo1=[out.asd1].'; vale1=[out.asd2].';
@@ -125,191 +128,204 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
    simin= simin.setBlockParameter('notch1/fault1','GroundFault', 'off');%             y = fi(i1,i2,i3);
 %             table1(N,:)=y;
 
-% %for line 2
-% %faults%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
-% for N=1:len
-%      time(N)=fftime(N);
-% 
-%  react(N)=reac(N);
-% indc(N)=ind(N);
-% capc(N)=cap(N);
-% 
-%     lineone(N)=vv2(N);
-%     linel(N)=zz2(N);
-%  
-%     Fr1(N)=R(N)*100;
-%     fault(N)= F(N);
-%       fault2(N)=f(N);
-%         fault3(N)=ff(N);
-%         
-%  simin(N) = Simulink.SimulationInput(mODL_NAME);
-%    
-% %      
-%  
-% 
-%    simin(N)=  simin(N).setBlockParameter('notch1/line2','length',string(lineone(N)));
-%       simin(N)=  simin(N).setBlockParameter('notch1/line2.1','length',string(linel(N)));
-%          simin(N)= simin(N).setBlockParameter('notch1/fault2','Faultresistance',num2str(Fr1(N)));
-%             simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault(N)), 'on');
-%                simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault2(N)), 'on');
-%                  simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault3(N)), 'on');
-%                
-%                 simin(N)= simin(N).setBlockParameter('notch1/fault2','GroundFault', 'on');
-%               
-% simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N)));
-%   
-%                 
-%                 simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
-% 
-% 
-% %   
-% %qwe is important for test date range
-% end  
-% out=sim(simin);%,'ShowSimulationManager','on')
-% valc2=[out.x].';
-%    valv2=[out.q].';
-%    vala2=[out.asd].';
-%    valo2=[out.asd1].';
-%    vale2=[out.asd2].';
-% simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
-%  simin= simin.setBlockParameter('notch1/fault2','FaultA', 'off');
-%   simin= simin.setBlockParameter('notch1/fault2','FaultB', 'off');
-%    simin= simin.setBlockParameter('notch1/fault2','FaultC', 'off');
-%    simin= simin.setBlockParameter('notch1/fault2','GroundFault', 'off');
-%    %for line 3 faults
-% for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
-% time(N)=fftime(N);
-% 
-%      react(N)=reac(N);
-% indc(N)=ind(N);
-% capc(N)=cap(N);
-%    
-%     lineone(N)=vv3(N);
-%     linel(N)=zz3(N);
-%  
-%     Fr1(N)=R(N)*100;
-%        fault(N)= F(N);
-%           fault2(N)=f(N);
-%              fault3(N)=ff(N);
-%         
-%  simin(N) = Simulink.SimulationInput(mODL_NAME);
-%    
+%for line 2
+%faults%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
+for N=1:len
+     time(N)=fftime(N);
+
+ react(N)=reac(N);
+indc(N)=ind(N);
+capc(N)=cap(N);
+
+    lineone(N)=vv2(N);
+    linel(N)=zz2(N);
+ 
+    Fr1(N)=R(N)*100;
+    fault(N)= F(N);
+      fault2(N)=f(N);
+        fault3(N)=ff(N);
+        
+ simin(N) = Simulink.SimulationInput(mODL_NAME);
+   
 %      
-% 
-% 
-% 
-%    simin(N)=  simin(N).setBlockParameter('notch1/line3','length',string(lineone(N)));
-%      simin(N)=  simin(N).setBlockParameter('notch1/line3.1','length',string(linel(N)));
-%          simin(N)= simin(N).setBlockParameter('notch1/fault3','Faultresistance',num2str(Fr1(N))) ; 
-%               simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault(N)), 'on');
-%                     simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault2(N)), 'on');
-%                           simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault3(N)), 'on');
-%                              simin(N)= simin(N).setBlockParameter('notch1/fault3','GroundFault', 'on');
-% 
-% simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N)));
-%                              
-%                              simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
-% 
-% 
+ 
+
+   simin(N)=  simin(N).setBlockParameter('notch1/line2','length',string(lineone(N)));
+      simin(N)=  simin(N).setBlockParameter('notch1/line2.1','length',string(linel(N)));
+         simin(N)= simin(N).setBlockParameter('notch1/fault2','Faultresistance',num2str(Fr1(N)));
+            simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault(N)), 'on');
+               simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault2(N)), 'on');
+                 simin(N)= simin(N).setBlockParameter('notch1/fault2',char(fault3(N)), 'on');
+               
+                simin(N)= simin(N).setBlockParameter('notch1/fault2','GroundFault', 'on');
+              
+simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N)));
+  
+                
+                simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
+
+
 %   
+%qwe is important for test date range
+end  
+out=sim(simin);%,'ShowSimulationManager','on')
+  valc2=[out.x].';%current
+    valc21=[out.x1].';
+   valv2=[out.q].';
+     valv21=[out.q1].';
+
+ vali21=[out.g1].';
+   vali22=[out.g2].';
+      vali23=[out.g3].';
+simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
+ simin= simin.setBlockParameter('notch1/fault2','FaultA', 'off');
+  simin= simin.setBlockParameter('notch1/fault2','FaultB', 'off');
+   simin= simin.setBlockParameter('notch1/fault2','FaultC', 'off');
+   simin= simin.setBlockParameter('notch1/fault2','GroundFault', 'off');
+   %for line 3 faults
+for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
+time(N)=fftime(N);
+
+     react(N)=reac(N);
+indc(N)=ind(N);
+capc(N)=cap(N);
+   
+    lineone(N)=vv3(N);
+    linel(N)=zz3(N);
+ 
+    Fr1(N)=R(N)*100;
+       fault(N)= F(N);
+          fault2(N)=f(N);
+             fault3(N)=ff(N);
+        
+ simin(N) = Simulink.SimulationInput(mODL_NAME);
+   
+     
+
+
+
+   simin(N)=  simin(N).setBlockParameter('notch1/line3','length',string(lineone(N)));
+     simin(N)=  simin(N).setBlockParameter('notch1/line3.1','length',string(linel(N)));
+         simin(N)= simin(N).setBlockParameter('notch1/fault3','Faultresistance',num2str(Fr1(N))) ; 
+              simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault(N)), 'on');
+                    simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault2(N)), 'on');
+                          simin(N)= simin(N).setBlockParameter('notch1/fault3',char(fault3(N)), 'on');
+                             simin(N)= simin(N).setBlockParameter('notch1/fault3','GroundFault', 'on');
+
+simin(N)= simin(N).setBlockParameter('notch1/fault3','SwitchTimes',string(time(N)));
+                             
+                             simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
+
+
+  
+
+end  
+out=sim(simin);%,'ShowSimulationManager','on')
+  valc3=[out.x].';%current
+    valc31=[out.x1].';
+   valv3=[out.q].';
+     valv31=[out.q1].';
+
+ vali31=[out.g1].';
+   vali32=[out.g2].';
+      vali33=[out.g3].';
+ 
+   
+   
+simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
+ simin= simin.setBlockParameter('notch1/fault3','FaultA', 'off');
+  simin= simin.setBlockParameter('notch1/fault3','FaultB', 'off');
+   simin= simin.setBlockParameter('notch1/fault3','FaultC', 'off');
+   simin= simin.setBlockParameter('notch1/fault3','GroundFault', 'off');
+    
+   %FOR FAULT AT the place of load adding after that fault4 block with only
+   %changing the fault types and fault resistances 
+   
+   for N=1:len%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
+    time(N)=fftime(N);
+
+    lineone(N)=vv3(N);
+    linel(N)=zz3(N);
+ 
+    Fr1(N)=R(N)*100;   % range of 100 ohm
+       fault(N)= F(N);
+          fault2(N)=f(N);
+             fault3(N)=ff(N);
+        
+ simin(N) = Simulink.SimulationInput(mODL_NAME);
+   
+    
+
+         simin(N)= simin(N).setBlockParameter('notch1/fault4','Faultresistance',num2str(Fr1(N)))  ;
+              simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault(N)), 'on');
+                    simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault2(N)), 'on');
+                          simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault3(N)), 'on');
+                             simin(N)= simin(N).setBlockParameter('notch1/fault4','GroundFault', 'on');
+
+simin(N)= simin(N).setBlockParameter('notch1/fault4','SwitchTimes',string(time(N)));
+  simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
+
+
+
+end  
+out=sim(simin)%,'ShowSimulationManager','on')
+  valc4=[out.x].';%current
+    valc41=[out.x1].';
+   valv4=[out.q].';
+     valv41=[out.q1].';
+
+ vali41=[out.g1].';
+   vali42=[out.g2].';
+      vali43=[out.g3].';
+
 % 
-% end  
-% out=sim(simin);%,'ShowSimulationManager','on')
-% valc3=[out.x].';
-%    valv3=[out.q].';
-%   vala3=[out.asd].';
-%    valo3=[out.asd1].';
-%    vale3=[out.asd2].';
-%  
-%    
-%    
-% simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
-%  simin= simin.setBlockParameter('notch1/fault3','FaultA', 'off');
-%   simin= simin.setBlockParameter('notch1/fault3','FaultB', 'off');
-%    simin= simin.setBlockParameter('notch1/fault3','FaultC', 'off');
-%    simin= simin.setBlockParameter('notch1/fault3','GroundFault', 'off');
-%     
-%    %FOR FAULT AT the place of load adding after that fault4 block with only
-%    %changing the fault types and fault resistances 
-%    
-%    for N=1:len%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
-%     time(N)=fftime(N);
-% 
-%     lineone(N)=vv3(N);
-%     linel(N)=zz3(N);
-%  
-%     Fr1(N)=R(N)*100;   % range of 100 ohm
-%        fault(N)= F(N);
-%           fault2(N)=f(N);
-%              fault3(N)=ff(N);
-%         
-%  simin(N) = Simulink.SimulationInput(mODL_NAME);
-%    
-%     
-% 
-%          simin(N)= simin(N).setBlockParameter('notch1/fault4','Faultresistance',num2str(Fr1(N)))  ;
-%               simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault(N)), 'on');
-%                     simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault2(N)), 'on');
-%                           simin(N)= simin(N).setBlockParameter('notch1/fault4',char(fault3(N)), 'on');
-%                              simin(N)= simin(N).setBlockParameter('notch1/fault4','GroundFault', 'on');
-% 
-% simin(N)= simin(N).setBlockParameter('notch1/fault4','SwitchTimes',string(time(N)));
-%   simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
-% 
-% 
-% 
-% end  
-% out=sim(simin)%,'ShowSimulationManager','on')
-% valc4=[out.x].';
-%    valv4=[out.q].';
-%   vala4=[out.asd].';
-%    valo4=[out.asd1].';
-%    vale4=[out.asd2].';
-% 
-% % 
-% 
-% simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
-%  simin= simin.setBlockParameter('notch1/fault4','FaultA', 'off');
-%   simin= simin.setBlockParameter('notch1/fault4','FaultB', 'off');
-%    simin= simin.setBlockParameter('notch1/fault4','FaultC', 'off');
-%    simin= simin.setBlockParameter('notch1/fault4','GroundFault', 'off');
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% % for load adding only at line 8
-%    for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
-%     time(N)=fftime(N);
-% 
-%     lineone(N)=vv3(N);
-%     linel(N)=zz3(N);
-%  
-%     Fr1(N)=R(N)*100;   % range of 100 ohm
-%        fault(N)= F(N);
-%           fault2(N)=f(N);
-%              fault3(N)=ff(N);
-%        
-% react(N)=reac(N);
-% indc(N)=ind(N);
-% capc(N)=cap(N);
-%  simin(N) = Simulink.SimulationInput(mODL_NAME);
-%    
-%     
-% 
-%          simin(N)= simin(N).setBlockParameter('notch1/test','ActivePower',num2str(react(N)))  ;
-%               simin(N)= simin(N).setBlockParameter('notch1/test','InductivePower',num2str(indc(N)));
-%                     simin(N)= simin(N).setBlockParameter('notch1/test','CapacitivePower',num2str(capc(N)));
-% %                          
-% 
-% simin(N)= simin(N).setBlockParameter('notch1/Three-Phase Breaker1','SwitchTimes',string(time(N)));
-%   simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
-% 
-%   
-% 
-% end  
-% out=sim(simin)%,'ShowSimulationManager','on')
-% valc5=[out.x].';
-%    valv5=[out.q].';
-%   vala5=[out.asd].';
-%    valo5=[out.asd1].';
-%    vale5=[out.asd2].';
+
+simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi; 
+ simin= simin.setBlockParameter('notch1/fault4','FaultA', 'off');
+  simin= simin.setBlockParameter('notch1/fault4','FaultB', 'off');
+   simin= simin.setBlockParameter('notch1/fault4','FaultC', 'off');
+   simin= simin.setBlockParameter('notch1/fault4','GroundFault', 'off');
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for load adding only at line 8
+   for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
+    time(N)=fftime(N);
+
+    lineone(N)=vv3(N);
+    linel(N)=zz3(N);
+ 
+    Fr1(N)=R(N)*100;   % range of 100 ohm
+       fault(N)= F(N);
+          fault2(N)=f(N);
+             fault3(N)=ff(N);
+       
+react(N)=reac(N);
+indc(N)=ind(N);
+capc(N)=cap(N);
+ simin(N) = Simulink.SimulationInput(mODL_NAME);
+   
+    
+
+         simin(N)= simin(N).setBlockParameter('notch1/test','ActivePower',num2str(react(N)))  ;
+              simin(N)= simin(N).setBlockParameter('notch1/test','InductivePower',num2str(indc(N)));
+                    simin(N)= simin(N).setBlockParameter('notch1/test','CapacitivePower',num2str(capc(N)));
+%                          
+
+simin(N)= simin(N).setBlockParameter('notch1/Three-Phase Breaker1','SwitchTimes',string(time(N)));
+  simin(N) = simin(N).setPostSimFcn(@(x) postsim(x));
+
+  
+
+end  
+out=sim(simin)%,'ShowSimulationManager','on')
+
+  valc5=[out.x].';%current
+    valc51=[out.x1].';
+   valv5=[out.q].';
+     valv51=[out.q1].';
+
+ vali51=[out.g1].';
+   vali52=[out.g2].';
+      vali53=[out.g3].';
 % 
 
 
@@ -321,13 +337,14 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
        tablei=[valc1];
           tablev=[valv1;] ;  
           
-save('drago10.mat');%normal drago2 5 ohm without switch timegood results
+save('drago11.mat');%normal drago2 5 ohm without switch timegood results
 %drago3 100ohm timed also saved in matlabdrago3.mat=++=drago4 for fault and
 %load add فيها  بس faults عند اللودdrago6.mat=load and line 8 finally all
 %all the work done on voltage
 %saved in dragon  and drago7 has line8 without time and 5 ohm
 %drago8 timed 100 ohm using filters on voltage and current %%%% dragna
-%saved dragon8-----drago9 -----addnoise to voltage
+%saved dragon8-----drago9 -----addnoise to voltage drago10 success then we
+%added the new x1 only in drago11
 
 
 function reac = calc_reactive_power(p)
@@ -394,12 +411,12 @@ currentA =out.i1;
 currentB =out.i2;
 currentC = out.i3;
 %adding the noise%%%%%%%%%%%%%5/25%%%%%%%5/
-    minNoisePowerA = var(currentA) / (10^(7.96/10));
-    maxNoisePowerA = var(currentA) / (10^(17/10));
-    minNoisePowerB = var(currentB) / (10^(7.96/10));
-    maxNoisePowerB = var(currentB) / (10^(17/10));
-    minNoisePowerC = var(currentC) / (10^(7.96/10));
-    maxNoisePowerC = var(currentC) / (10^(17/10));
+    minNoisePowerA = var(currentA) / (10^(21.69/10));
+    maxNoisePowerA = var(currentA) / (10^(50/10));
+    minNoisePowerB = var(currentB) / (10^(21.69/10));
+    maxNoisePowerB = var(currentB) / (10^(50/10));
+    minNoisePowerC = var(currentC) / (10^(21.69/10));
+    maxNoisePowerC = var(currentC) / (10^(50/10));
     
     % Generate random noise powers within the desired range
     noisePower1 = (maxNoisePowerA - minNoisePowerA) * rand() + minNoisePowerA;
@@ -549,13 +566,15 @@ ac4 = appcoef(cc4, Lc4,'db4' ,4);
 in1=[aA4 ;dA4 ; dA3 ;  dA2 ; dA1 ];
     in2=[aB4; dB4 ; dB3 ;  dB2 ; dB1];
     in3=[aC4; dC4 ; dC3 ; dC2 ; dC1];
-    %the final array that will be but in the valv array to be used fordc1db1;da1; 
-    %training 
+    %the final array that will be but in the valv array to be used for 
+    %training  اخر محاولة ناجحة كانت 7.96ز17 تيار  صنفت النقط newout.q
 newout.q=[aa4;ac4;ab4;aa4;ac4;ab4;aA4;aB4; aC4 ;dA4; dB4 ; dC4 ;da4 ;da3 ; da2; db4 ;db3 ; db2; dc4 ;dc3 ; dc2; ];%valv
+newout.q1=[ab4;aa4;ac4;aA4;aB4; aC4 ;dA4; dB4 ; dC4 ;da4 ;da3 ; da2; db4 ;db3 ; db2; dc4 ;dc3 ; dc2;da1;db1;dc1 ];%valv2 accuracy>q
 
  %the final array that will be but in the valc array to be used for
     %training 
-newout.x= [aA4;dA4 ; dA3 ;  dA2 ; dA1 ;aB4;  dB4 ; dB3 ;  dB2 ; dB1;aC4; dC4 ; dC3 ; dC2 ; dC1];%valc
+newout.x=[aA4 ;dA4 ; dA3 ;  dA2 ; dA1 ; aB4; dB4 ; dB3 ;  dB2 ; dB1; aC4; dC4 ; dC3 ; dC2 ; dC1];%valc
+newout.x1=[;dA4 ; dA3 ;  dA2 ; dA1 ;  dB4 ; dB3 ;  dB2 ; dB1;  dC4 ; dC3 ; dC2 ; dC1;dc4 ;dc3 ; dc2; db4 ;db3 ; db2;da4 ;da3 ; da2];%valc
 % Inputs
 % new_x = newout.x;  % Input array for 'valc'
 % new_q = newout.q;  % Input array for 'valv'

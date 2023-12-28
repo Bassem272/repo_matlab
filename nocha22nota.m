@@ -1,12 +1,12 @@
 clc, 
 clearvars;
 %error msg A;
-warning off;
+warning on;
 mODL_NAME = 'notch1';
 load_system(mODL_NAME);
 find_system(mODL_NAME);
 
-N=500;        % number of population made change 25/5 drago .mat copy of nocha22nota.m
+N=5;        % number of population made change 25/5 drago .mat copy of nocha22nota.m
   
   l1=5.87;
     l2=.95;
@@ -75,7 +75,7 @@ len=length(All_length);
 
 % 
 % for line 1 faults
-for N=1:len%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for N=1:len%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
 
 time(N)=fftime(N);
     react(N)=reac(N);
@@ -123,7 +123,7 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
 %             table1(N,:)=y;
 
 %for line 2
-%faults%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%faults%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
 for N=1:len
      time(N)=fftime(N);
 
@@ -174,7 +174,7 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
    simin= simin.setBlockParameter('notch1/fault2','FaultC', 'off');
    simin= simin.setBlockParameter('notch1/fault2','GroundFault', 'off');
    %for line 3 faults
-for N=1:len%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
 time(N)=fftime(N);
 
      react(N)=reac(N);
@@ -229,7 +229,7 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
    %FOR FAULT AT the place of load adding after that fault4 block with only
    %changing the fault types and fault resistances 
    
-   for N=1:len%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   for N=1:len%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
     time(N)=fftime(N);
 
     lineone(N)=vv3(N);
@@ -272,7 +272,7 @@ simin = Simulink.SimulationInput(mODL_NAME);%             fi=@cfi;
    simin= simin.setBlockParameter('notch1/fault4','GroundFault', 'off');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % for load adding only at line 8
-   for N=1:len%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   for N=1:len%%%%@@@@@@@@@$$$$$$$--------------------------$$$$$$@@@@@@@@@%%
     time(N)=fftime(N);
 
     lineone(N)=vv3(N);
@@ -318,13 +318,14 @@ valc5=[out.x].';
        tablei=[valc1;valc2;valc3;valc4;valc5;];
           tablev=[valv1;valv2;valv3;valv4;valv5] ;  
           
-save('drago8.mat');%normal drago2 5 ohm without switch timegood results
+save('drago9.2.mat');%normal drago2 5 ohm without switch timegood results
 %drago3 100ohm timed also saved in matlabdrago3.mat=++=drago4 for fault and
 %load add فيها  بس faults عند اللودdrago6.mat=load and line 8 finally all
 %all the work done on voltage
 %saved in dragon  and drago7 has line8 without time and 5 ohm
 %drago8 timed 100 ohm using filters on voltage and current %%%% dragna
-%saved dragon8
+%saved dragon8-----drago9 -----addnoise to voltage
+%last was drago9/and then we take test  ...[drag9.2]
 
 
 function reac = calc_reactive_power(p)
@@ -483,13 +484,33 @@ w1 =out.v1;
 w2 =out.v2;
 w3 = out.v3;
 
+%%%%%%%%%%%%%%%%---addition drago9 only this section---%%%%%%%%%%%%%%%%%
+    minNoisePowerAv = var(w1) / (10^(21.69/10));
+    maxNoisePowerAv = var(w1) / (10^(50/10));
+    minNoisePowerBv = var(w2 ) / (10^(21.69/10));
+    maxNoisePowerBv = var(w2 ) / (10^(50/10));
+    minNoisePowerCv = var(w3) / (10^(21.69/10));
+    maxNoisePowerCv = var(w3) / (10^(50/10));
+    
+    % Generate random noise powers within the desired range
+    noisePower1v = (maxNoisePowerAv - minNoisePowerAv) * rand() + minNoisePowerAv;
+    noisePower2v = (maxNoisePowerBv - minNoisePowerBv) * rand() + minNoisePowerBv;
+    noisePower3v = (maxNoisePowerCv - minNoisePowerCv) * rand() + minNoisePowerCv;
+    
+    % Generate white noise
+    noise1v = randn(size(w1)) * sqrt(noisePower1v);
+    noise2v = randn(size(w2 )) * sqrt(noisePower2v);
+    noise3v = randn(size(w3)) * sqrt(noisePower3v);
+    
+    % Add the noise to the input signals
+    noisySignal1v = w1 + noise1v;
+    noisySignal2v= w2  + noise2v;
+    noisySignal3v = w3 + noise3v;
+    w1=noisySignal1v;
+    w2 =noisySignal2v;
+   w3=noisySignal3v;
 
-
-
-
-
-
-
+%%%%%%%%%%%%%%%%---addition drago9 only this section---%%%%%%%%%%%%%%%%%
 
 wv = 'db4';
 Fs = 8000;
